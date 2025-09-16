@@ -1,0 +1,14 @@
+create ssh keys:
+ssh-keygen -t ed25519 -C "ansible"
+copy the public key to the target server:
+ssh-copy-id -i /home/ubuntu/.ssh/ansible.pub 192.168.250.30
+ssh to the server using the generated keys:
+ssh -i /home/ubuntu/.ssh/ansible '192.168.250.30'
+first ansible cmd to check connections : 
+ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+added an ansible.cfg file to avoid using the -i and --key-file options every time:
+[defaults]
+inventory = inventory
+private_key_file = ~/.ssh/ansible
+get host informations :
+ansible all -m gather_facts
