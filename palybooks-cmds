@@ -1,0 +1,2 @@
+run first playbook:
+ansible-playbook --ask-become-pass install_apache.yml
