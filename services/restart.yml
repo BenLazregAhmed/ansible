@@ -1,0 +1,16 @@
+   - name: change e-mail address for admin
+     tags: apache,centos,httpd
+     lineinfile: # this module changes a line in a file
+       path: /etc/httpd/conf/httpd.conf
+       regexp: '^ServerAdmin'
+       line: ServerAdmin somebody@somewhere.net
+     when: ansible_distribution == "CentOS"
+     register: httpd #register the state in a variable called httpd
+                     #if the same variable name is used in onother task the old value of the var gets overriden by the most recent one --> be careful when doing that
+ 
+   - name: restart httpd (CentOS)
+     tags: apache,centos,httpd
+     service:
+       name: httpd
+       state: restarted
+     when: httpd.changed  #triggered only when the httpd variable is changed
