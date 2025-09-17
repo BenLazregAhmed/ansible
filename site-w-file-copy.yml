@@ -9,6 +9,7 @@
      apt:
        upgrade: dist
        update_cache: yes
+     changed_when: false #consider that this is not a change
      when: ansible_distribution == "Ubuntu"
  
  
@@ -34,7 +35,7 @@
        group: root
        mode: 0644
 
-- hosts: workstations
+ - hosts: workstations
    become: true
    tasks:
 
@@ -45,8 +46,8 @@
    - name: install terraform
      unarchive:
       src: https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
-       dest: /usr/local/bin
-       remote_src: yes
-       mode: 0755
-       owner: root
-       group: root
+      dest: /usr/local/bin
+      remote_src: yes
+      mode: 0755
+      owner: root
+      group: root
